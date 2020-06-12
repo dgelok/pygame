@@ -32,20 +32,34 @@ def main():
 
             # Event handling
             if event.type == pygame.KEYDOWN:
+                # activate the cooresponding speeds
+                # when an arrow key is pressed down
                 if event.key == KEY_DOWN:
-                    hero.y += 5
+                    hero.speed_y = 5
                 elif event.key == KEY_UP:
-                    hero.y -= 5
+                    hero.speed_y = -5
                 elif event.key == KEY_LEFT:
-                    hero.x -= 5
+                    hero.speed_x = -5
                 elif event.key == KEY_RIGHT:
-                    hero.x += 5
+                    hero.speed_x = 5
+            if event.type == pygame.KEYUP:
+                # deactivate the cooresponding speeds
+                # when an arrow key is released
+                if event.key == KEY_DOWN:
+                    hero.speed_y = 0
+                elif event.key == KEY_UP:
+                    hero.speed_y = 0
+                elif event.key == KEY_LEFT:
+                    hero.speed_x = 0
+                elif event.key == KEY_RIGHT:
+                    hero.speed_x = 0
             if event.type == pygame.QUIT:
                 stop_game = True
             
         
         # Game logic
         monster.move()
+        hero.update()
 
         # Draw background
         screen.fill(blue_color)

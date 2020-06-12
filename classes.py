@@ -56,9 +56,12 @@ class Hero(object):
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        # self.speed_x = 5
-        # self.speed_y = 5
+        self.speed_x = 0
+        self.speed_y = 0
         # self.radius = 50
 
+    def update(self):
+        self.x += self.speed_x
+        self.y += self.speed_y
     # def render(self, screen):
     #     pygame.draw.circle(screen, (255, 0, 0), (self.x, self.y), self.radius)
