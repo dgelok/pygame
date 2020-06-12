@@ -3,10 +3,18 @@ import random
 from classes import *
 import math
 
+pygame.font.init()
+font = pygame.font.Font(None, 25)
+win_message = font.render("Hit ENTER to play again!", True, (0, 0, 0))
+
+
 KEY_UP = 273
 KEY_DOWN = 274
 KEY_LEFT = 276
 KEY_RIGHT = 275
+
+
+
 
 def main():
     width = 512
@@ -73,6 +81,7 @@ def main():
                 monster.dead = True
                 pygame.mixer.music.load('sounds/win.wav')
                 pygame.mixer.music.play()
+                
 
 
 
@@ -83,8 +92,7 @@ def main():
         screen.blit(background_image, (0, 0))
         screen.blit(hero_image, (hero.x, hero.y))
         if monster.dead:
-
-            pass
+            screen.blit(win_message, (150, 200))
         else:
             screen.blit(monster_image, (monster.x, monster.y))
         # screen.blit(monster_image, (monster2.x, monster2.y))
