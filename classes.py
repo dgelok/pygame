@@ -1,6 +1,6 @@
 import random
 
-speed = 3
+speed = 2
 
 class Character():
     def __init__(self, x, y, width, height):
@@ -52,11 +52,6 @@ class Monster(Character):
             self.y = 0
         elif self.y <= 0:
             self.y = self.height
-
-KEY_UP = 273
-KEY_DOWN = 274
-KEY_LEFT = 276
-KEY_RIGHT = 275
 
 class Hero(Character):
     def __init__(self, x, y, width, height):

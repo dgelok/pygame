@@ -14,8 +14,6 @@ KEY_LEFT = 276
 KEY_RIGHT = 275
 
 
-
-
 def main():
     width = 512
     height = 480
@@ -23,7 +21,7 @@ def main():
 
     pygame.init()
     screen = pygame.display.set_mode((width, height))
-    pygame.display.set_caption('My Game')
+    pygame.display.set_caption('Attack!')
     clock = pygame.time.Clock()
 
     # Game initialization
@@ -32,10 +30,9 @@ def main():
     monster_image = pygame.image.load('images/monster.png').convert_alpha()
     stop_game = False
 
-    monster = Monster(80, 300, width, height)
-    monster2 = Monster(200, 20, width, height)
+    monster = Monster(random.randint(1, width), random.randint(1, height), width, height)
+    monster2 = Monster(random.randint(1, width), random.randint(1, height), width, height)
     hero = Hero(256, 240, width, height)
-    direction = 2
     hspeed = 4
     won = False
 
@@ -45,11 +42,9 @@ def main():
     while not stop_game:
         
         for event in pygame.event.get():
-
             # Event handling
             if event.type == pygame.KEYDOWN:
-                # activate the cooresponding speeds
-                # when an arrow key is pressed down
+                # key commands pressed down
                 if event.key == KEY_DOWN:
                     hero.speed_y = hspeed
                 elif event.key == KEY_UP:
@@ -62,6 +57,7 @@ def main():
                     if won == True:
                         monster.dead = False
                         won = False
+                        main()
 
             if event.type == pygame.KEYUP:
                 # deactivate the cooresponding speeds
@@ -74,6 +70,7 @@ def main():
                     hero.speed_x = 0
                 elif event.key == KEY_RIGHT:
                     hero.speed_x = 0
+            
             if event.type == pygame.QUIT:
                 stop_game = True
             
