@@ -46,4 +46,19 @@ class Monster():
             self.y = 0
         elif self.y <= 0:
             self.y = self.height
-        
+
+KEY_UP = 273
+KEY_DOWN = 274
+KEY_LEFT = 276
+KEY_RIGHT = 275
+
+class Hero(object):
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        # self.speed_x = 5
+        # self.speed_y = 5
+        # self.radius = 50
+
+    # def render(self, screen):
+    #     pygame.draw.circle(screen, (255, 0, 0), (self.x, self.y), self.radius)
