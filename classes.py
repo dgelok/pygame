@@ -9,6 +9,7 @@ class Monster():
         self.counter = 0
         self.width = width
         self.height = height
+        self.dead = False
 
     def update(self):
         self.counter += 1

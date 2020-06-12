@@ -1,6 +1,7 @@
 import pygame
 import random
 from classes import *
+import math
 
 KEY_UP = 273
 KEY_DOWN = 274
@@ -27,6 +28,7 @@ def main():
     monster2 = Monster(200, 20, 2, 0, 512, 480)
     hero = Hero(256, 240, width, height)
     direction = 2
+    speed = 3
 
     while not stop_game:
         for event in pygame.event.get():
@@ -36,13 +38,13 @@ def main():
                 # activate the cooresponding speeds
                 # when an arrow key is pressed down
                 if event.key == KEY_DOWN:
-                    hero.speed_y = 5
+                    hero.speed_y = speed
                 elif event.key == KEY_UP:
-                    hero.speed_y = -5
+                    hero.speed_y = -speed
                 elif event.key == KEY_LEFT:
-                    hero.speed_x = -5
+                    hero.speed_x = -speed
                 elif event.key == KEY_RIGHT:
-                    hero.speed_x = 5
+                    hero.speed_x = speed
             if event.type == pygame.KEYUP:
                 # deactivate the cooresponding speeds
                 # when an arrow key is released
@@ -62,6 +64,11 @@ def main():
         monster.update()
         # monster2.update()
         hero.update()
+        xs = abs(hero.x - monster.x)
+        ys = abs(hero.y - monster.y)
+        collide = math.sqrt(xs * xs + ys * ys)
+        if collide < 32:
+            monster.dead = True
 
         # Draw background
         screen.fill(blue_color)
@@ -69,7 +76,10 @@ def main():
         # Game display
         screen.blit(background_image, (0, 0))
         screen.blit(hero_image, (hero.x, hero.y))
-        screen.blit(monster_image, (monster.x, monster.y))
+        if monster.dead:
+            pass
+        else:
+            screen.blit(monster_image, (monster.x, monster.y))
         # screen.blit(monster_image, (monster2.x, monster2.y))
         pygame.display.update()
         clock.tick(60)
