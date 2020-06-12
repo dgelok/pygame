@@ -1,5 +1,8 @@
 import pygame
 import random
+from classes import *
+
+
 
 def main():
     width = 512
@@ -17,33 +20,26 @@ def main():
     monster_image = pygame.image.load('images/monster.png').convert_alpha()
     stop_game = False
 
-    
-    monster_x = 80
-    monster_y = 300
-    directions = []
+    monster = Monster(80, 300, 1, 0, 512, 480)
+    direction = 2
+
     while not stop_game:
         for event in pygame.event.get():
 
             # Event handling
-
             if event.type == pygame.QUIT:
                 stop_game = True
         
         # Game logic
-        if monster_x <= 0:
-            monster_x = width
-        if monster_y >= height:
-            monster_y = 0
-        
+        monster.move()
 
-        monster_y += 2
         # Draw background
         screen.fill(blue_color)
 
         # Game display
         screen.blit(background_image, (0, 0))
         screen.blit(hero_image, (256, 240))
-        screen.blit(monster_image, (monster_x, monster_y))
+        screen.blit(monster_image, (monster.x, monster.y))
         pygame.display.update()
         clock.tick(60)
 
