@@ -24,11 +24,11 @@ def main():
     monster_image = pygame.image.load('images/monster.png').convert_alpha()
     stop_game = False
 
-    monster = Monster(80, 300, 1, 0, width, height)
-    monster2 = Monster(200, 20, 2, 0, 512, 480)
+    monster = Monster(80, 300, width, height)
+    monster2 = Monster(200, 20, width, height)
     hero = Hero(256, 240, width, height)
     direction = 2
-    speed = 3
+    hspeed = 4
 
 
     while not stop_game:
@@ -39,13 +39,13 @@ def main():
                 # activate the cooresponding speeds
                 # when an arrow key is pressed down
                 if event.key == KEY_DOWN:
-                    hero.speed_y = speed
+                    hero.speed_y = hspeed
                 elif event.key == KEY_UP:
-                    hero.speed_y = -speed
+                    hero.speed_y = -hspeed
                 elif event.key == KEY_LEFT:
-                    hero.speed_x = -speed
+                    hero.speed_x = -hspeed
                 elif event.key == KEY_RIGHT:
-                    hero.speed_x = speed
+                    hero.speed_x = hspeed
             if event.type == pygame.KEYUP:
                 # deactivate the cooresponding speeds
                 # when an arrow key is released
@@ -63,13 +63,18 @@ def main():
         
         # Game logic
         monster.update()
-        # monster2.update()
         hero.update()
+
         xs = abs(hero.x - monster.x)
         ys = abs(hero.y - monster.y)
         collide = math.sqrt(xs * xs + ys * ys)
         if collide < 32:
-            monster.dead = True
+            if monster.dead == False:
+                monster.dead = True
+                pygame.mixer.music.load('sounds/win.wav')
+                pygame.mixer.music.play()
+
+
 
         # Draw background
         screen.fill(blue_color)
@@ -78,6 +83,7 @@ def main():
         screen.blit(background_image, (0, 0))
         screen.blit(hero_image, (hero.x, hero.y))
         if monster.dead:
+
             pass
         else:
             screen.blit(monster_image, (monster.x, monster.y))

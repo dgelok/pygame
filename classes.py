@@ -1,14 +1,19 @@
 import random
 
-speed = 2
-class Monster():
-    def __init__(self, x, y, direction, counter, width, height):
+speed = 3
+
+class Character():
+    def __init__(self, x, y, width, height):
         self.x = x
         self.y = y
-        self.direction = direction
-        self.counter = 0
         self.width = width
-        self.height = height
+        self.height = height    
+
+class Monster(Character):
+    def __init__(self, x, y, width, height):
+        super(Monster, self).__init__(x, y, width, height)
+        self.direction = random.randint(1,9)
+        self.counter = 0
         self.dead = False
 
     def update(self):
@@ -53,15 +58,11 @@ KEY_DOWN = 274
 KEY_LEFT = 276
 KEY_RIGHT = 275
 
-class Hero(object):
+class Hero(Character):
     def __init__(self, x, y, width, height):
-        self.x = x
-        self.y = y
+        super(Hero, self).__init__(x, y, width, height)
         self.speed_x = 0
         self.speed_y = 0
-        self.width = width
-        self.height = height
-        # self.radius = 50
 
     def update(self):
         self.x += self.speed_x
@@ -75,6 +76,3 @@ class Hero(object):
             self.y = 32
         elif self.y >= self.height - 64:
             self.y = self.height - 64
-
-    # def render(self, screen):
-    #     pygame.draw.circle(screen, (255, 0, 0), (self.x, self.y), self.radius)
