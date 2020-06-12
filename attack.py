@@ -30,6 +30,7 @@ def main():
     direction = 2
     speed = 3
 
+
     while not stop_game:
         for event in pygame.event.get():
 
