@@ -19,12 +19,13 @@ def main():
 
     # Game initialization
     background_image = pygame.image.load('images/background.png').convert_alpha()
-    hero_image = pygame.image.load('images/hero.png').convert_alpha()
+    hero_image = pygame.image.load('images/link.png').convert_alpha()
     monster_image = pygame.image.load('images/monster.png').convert_alpha()
     stop_game = False
 
-    monster = Monster(80, 300, 1, 0, 512, 480)
-    hero = Hero(256, 240)
+    monster = Monster(80, 300, 1, 0, width, height)
+    monster2 = Monster(200, 20, 2, 0, 512, 480)
+    hero = Hero(256, 240, width, height)
     direction = 2
 
     while not stop_game:
@@ -58,7 +59,8 @@ def main():
             
         
         # Game logic
-        monster.move()
+        monster.update()
+        # monster2.update()
         hero.update()
 
         # Draw background
@@ -68,6 +70,7 @@ def main():
         screen.blit(background_image, (0, 0))
         screen.blit(hero_image, (hero.x, hero.y))
         screen.blit(monster_image, (monster.x, monster.y))
+        # screen.blit(monster_image, (monster2.x, monster2.y))
         pygame.display.update()
         clock.tick(60)
 

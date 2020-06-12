@@ -10,7 +10,7 @@ class Monster():
         self.width = width
         self.height = height
 
-    def move(self):
+    def update(self):
         self.counter += 1
         if self.counter == 20:
             self.direction = random.randint(1,9)
@@ -53,15 +53,27 @@ KEY_LEFT = 276
 KEY_RIGHT = 275
 
 class Hero(object):
-    def __init__(self, x, y):
+    def __init__(self, x, y, width, height):
         self.x = x
         self.y = y
         self.speed_x = 0
         self.speed_y = 0
+        self.width = width
+        self.height = height
         # self.radius = 50
 
     def update(self):
         self.x += self.speed_x
         self.y += self.speed_y
+        if self.x <= 32:
+            self.x = 32
+        elif self.x >= self.height - 32:
+            self.x = self.height - 32
+
+        if self.y <= 32:
+            self.y = 32
+        elif self.y >= self.height - 64:
+            self.y = self.height - 64
+
     # def render(self, screen):
     #     pygame.draw.circle(screen, (255, 0, 0), (self.x, self.y), self.radius)
