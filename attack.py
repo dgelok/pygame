@@ -37,9 +37,13 @@ def main():
     hero = Hero(256, 240, width, height)
     direction = 2
     hspeed = 4
+    won = False
 
+    pygame.mixer.music.load('sounds/music.wav')
+    pygame.mixer.music.play(-1)
 
     while not stop_game:
+        
         for event in pygame.event.get():
 
             # Event handling
@@ -54,6 +58,11 @@ def main():
                     hero.speed_x = -hspeed
                 elif event.key == KEY_RIGHT:
                     hero.speed_x = hspeed
+                elif event.key == pygame.K_RETURN:
+                    if won == True:
+                        monster.dead = False
+                        won = False
+
             if event.type == pygame.KEYUP:
                 # deactivate the cooresponding speeds
                 # when an arrow key is released
@@ -81,25 +90,21 @@ def main():
                 monster.dead = True
                 pygame.mixer.music.load('sounds/win.wav')
                 pygame.mixer.music.play()
+                won = True
                 
-
-
-
         # Draw background
         screen.fill(blue_color)
 
         # Game display
         screen.blit(background_image, (0, 0))
         screen.blit(hero_image, (hero.x, hero.y))
-        if monster.dead:
+        if won:
             screen.blit(win_message, (150, 200))
         else:
             screen.blit(monster_image, (monster.x, monster.y))
         # screen.blit(monster_image, (monster2.x, monster2.y))
         pygame.display.update()
         clock.tick(60)
-
-        
 
     pygame.quit()
 
