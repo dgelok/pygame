@@ -1,7 +1,7 @@
 import random
+import math
 
-speed = 2
-
+gspeed = 1
 class Character():
     def __init__(self, x, y, width, height):
         self.x = x
@@ -10,11 +10,12 @@ class Character():
         self.height = height    
 
 class Monster(Character):
-    def __init__(self, x, y, width, height):
+    def __init__(self, x, y, width, height, speed):
         super(Monster, self).__init__(x, y, width, height)
         self.direction = random.randint(1,9)
         self.counter = 0
         self.dead = False
+        self.speed = speed
 
     def update(self):
         self.counter += 1
@@ -23,25 +24,25 @@ class Monster(Character):
             self.counter = 0
 
         if self.direction == 1:
-            self.x += speed
+            self.x += self.speed
         elif self.direction == 2:
-            self.x += -speed
+            self.x += -self.speed
         elif self.direction == 3:
-            self.y += speed
+            self.y += self.speed
         elif self.direction == 4:
-            self.y += -speed
+            self.y += -self.speed
         elif self.direction == 5:
-            self.x -= speed
-            self.y -= speed
+            self.x -= self.speed
+            self.y -= self.speed
         elif self.direction == 6:
-            self.x += speed
-            self.y -= speed
+            self.x += self.speed
+            self.y -= self.speed
         elif self.direction == 7:
-            self.x += speed
-            self.y += speed
+            self.x += self.speed
+            self.y += self.speed
         elif self.direction == 8:
-            self.x -= speed
-            self.y += speed
+            self.x -= self.speed
+            self.y += self.speed
 
         if self.x >= self.width:
             self.x = 0
@@ -71,3 +72,15 @@ class Hero(Character):
             self.y = 32
         elif self.y >= self.height - 64:
             self.y = self.height - 64
+    
+    def dead(self, goblin):
+        xs = abs(self.x - goblin.x)
+        ys = abs(self.y - goblin.y)
+        collide = math.sqrt(xs * xs + ys * ys)
+        if collide < 32:
+            return True
+        else:
+            return False
+
+class Goblin(Monster):
+    pass
