@@ -6,7 +6,7 @@ import math
 pygame.font.init()
 font = pygame.font.Font(None, 25)
 win_message = font.render("Hit ENTER to play again!", True, (0, 0, 0))
-
+lose_message = font.render("You LOSE! Hit ENTER to play again!", True, (0, 0, 0))
 
 KEY_UP = 273
 KEY_DOWN = 274
@@ -96,16 +96,19 @@ def main():
                 pygame.mixer.music.play()
                 won = True
         
-        if hero.dead(goblin):
-            pygame.mixer.music.load('sounds/lose.wav')
-            pygame.mixer.music.play()
+
 
         # Draw background
         screen.fill(blue_color)
 
         # Game display
         screen.blit(background_image, (0, 0))
-        screen.blit(hero_image, (hero.x, hero.y))
+        if hero.dead(goblin):
+            pygame.mixer.music.load('sounds/lose.wav')
+            pygame.mixer.music.play()
+            screen.blit(lose_message, (140, 200))
+        else:
+            screen.blit(hero_image, (hero.x, hero.y))
         
 
         if won:
